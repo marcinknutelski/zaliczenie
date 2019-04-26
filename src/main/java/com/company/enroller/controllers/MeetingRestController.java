@@ -36,7 +36,7 @@ public class MeetingRestController {
 	//Lista pojedyńczego spotkania - BASIC_2
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getOneMeeting(@PathVariable("id") long id){
-		Meeting meeting = meetingService.findMeetingId(id);
+		Meeting meeting = meetingService.findMeeteingById(id);
 		if (meeting == null){
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
@@ -46,22 +46,22 @@ public class MeetingRestController {
 	//Dodawanie spotkań - BASIC_3
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<?> addMeeting(@RequestBody Meeting meeting){
-		Meeting findMeeting = meetingService.findMeetingId(meeting.getId());
+		Meeting findMeeting = meetingService.findMeeteingById(meeting.getId());
 		if (findMeeting != null){
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
-		meetingService.addition(meeting);
+		meetingService.add(meeting);
 		return new ResponseEntity<Meeting>(meeting, HttpStatus.CREATED);
 		}	
 			
 	// Usuwanie spotkań - GOLD_1
 			@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 			public ResponseEntity<?> deleteMeeting(@PathVariable("id") long id){
-				Meeting meeting = meetingService.findMeetingId(id);
+				Meeting meeting = meetingService.findMeeteingById(id);
 				if(meeting == null){
 					return new ResponseEntity(HttpStatus.NOT_FOUND);
 				}
-				meetingService.toDelete(meeting);
+				meetingService.delete(meeting);
 				return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
 			}
 }	     
